@@ -116,7 +116,7 @@ void task_guardian_lcd(void *params) {
         float temp_c = 27 - (voltage - 0.706f) / 0.001721f;
 
         // Mostrar datos
-        printf("ADC1: %u \t| ADC2: %u \t| Temp: %.2f°C\n", val1, val2, temp_c);
+        printf("ADC1: %.2f \t| ADC2: %.2f \t| Temp: %.2f°C\n", val1 * conv_factor, val2 * conv_factor, temp_c);
 
         // Limpio el LCD
         lcd_clear();
@@ -126,12 +126,12 @@ void task_guardian_lcd(void *params) {
         lcd_set_cursor(1, 2);
         // Escribo
         char buffer[20];
-        sprintf(buffer, "ADC_1: %lu", val1);
+        sprintf(buffer, "ADC_1: %.2f V", val1 * conv_factor);
         lcd_string(buffer);
         // Muevo el cursor a la segunda fila, tercer columna
         lcd_set_cursor(2, 2);
         // Escribo
-        sprintf(buffer, "ADC_2: %u", val2);
+        sprintf(buffer, "ADC_2: %.2f V", val2 * conv_factor);
         lcd_string(buffer);
         // Muevo el cursor a la segunda fila, tercer columna
         lcd_set_cursor(3, 2);
