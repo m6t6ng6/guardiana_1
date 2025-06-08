@@ -50,6 +50,8 @@ int main() {
     adc_setup();
     gpio_setup();
 
+    // Inicializo el I2C con un clock de 100 KHz
+    i2c_init(I2C, 100000);
     // Habilito la funcion de I2C en los GPIOs
     gpio_set_function(SDA_GPIO, GPIO_FUNC_I2C);
     gpio_set_function(SCL_GPIO, GPIO_FUNC_I2C);
@@ -127,15 +129,15 @@ void task_guardian_lcd(void *params) {
         sprintf(buffer, "ADC_1: %lu", val1);
         lcd_string(buffer);
         // Muevo el cursor a la segunda fila, tercer columna
-        //lcd_set_cursor(2, 2);
+        lcd_set_cursor(2, 2);
         // Escribo
-        //sprintf(buffer, "ADC_2: %u", val2);
-        //lcd_string(buffer);
+        sprintf(buffer, "ADC_2: %u", val2);
+        lcd_string(buffer);
         // Muevo el cursor a la segunda fila, tercer columna
-        //lcd_set_cursor(3, 2);
+        lcd_set_cursor(3, 2);
         // Escribo
-        //sprintf(buffer, "Temp: %u", temp_c);
-        //lcd_string(buffer);
+        sprintf(buffer, "Temp: %.2f C", temp_c);
+        lcd_string(buffer);
         
 
         // Si superó el umbral → activa latch y guarda tiempo
